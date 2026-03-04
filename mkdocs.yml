@@ -1,0 +1,49 @@
+site_name: Agentic Academia
+site_description: A personal reference for production-grade Claude Code patterns
+site_url: https://fitd-tech.github.io/agentic-acedemia
+repo_url: https://github.com/fitd-tech/agentic-acedemia
+repo_name: fitd-tech/agentic-acedemia
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: deep purple
+      accent: purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+
+nav:
+  - Home: index.md
+  - Guide:
+    - CLAUDE.md Engineering: 01-claude-md/index.md
+    - Hooks: 02-hooks/index.md
+    - Subagents: 03-subagents/index.md
+    - Agent Teams: 04-agent-teams/index.md
+    - MCP Servers: 05-mcp-servers/index.md
+    - GitHub Actions: 06-github-actions/index.md
+
+docs_dir: guide

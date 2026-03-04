@@ -1,0 +1,16 @@
+# Python / MkDocs
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+site/
+
+# macOS
+.DS_Store
+
+# Claude local settings (personal overrides, not for version control)
+.claude/settings.local.json
+
+# Environment variables
+.env
+*.env
