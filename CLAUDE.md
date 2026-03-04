@@ -42,3 +42,13 @@ Build and document production-grade patterns for:
 - All experiments have a `README.md` explaining what was learned
 - Hook scripts are executable shell scripts with inline comments
 - Skills are self-contained SKILL.md files usable in other projects
+
+## Memory
+
+Progress and session context live in `memory/MEMORY.md`, not here.
+Update `memory/MEMORY.md` at these milestones:
+- Completing an experiment (what was built, what was learned, any gotchas)
+- Finishing a topic area (summary of the section, what to tackle next)
+- Any decision that would be confusing to reconstruct cold (why we did X instead of Y)
+
+Never put session-specific progress in this file.
