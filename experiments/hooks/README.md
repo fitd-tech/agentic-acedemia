@@ -1,35 +1,43 @@
 # Hooks Experiments
 
-Hands-on experiments for learning the hooks system.
+## Completed
 
-## Experiments
+### Secret Scanner (`secret-scanner.sh`)
 
-*None yet — add one to get started.*
+A `PreToolUse` hook that intercepts Bash tool calls and blocks commands that
+appear to expose secrets.
 
-## Suggested Starting Points
+**What it blocks:**
+- `echo $API_KEY` — echoing env vars with secret-like names
+- `cat .env` — reading `.env` / credential files
+- `curl -H "Authorization: Bearer ..."` — authenticated HTTP requests
+- `env` / `printenv` — printing all environment variables
 
-1. **Secret scanner** — a `PreToolUse` hook that blocks Bash commands containing common secret patterns
-2. **Edit logger** — a `PostToolUse` hook that logs every file edit to a local file
-3. **Commit normalizer** — a `PreToolUse` hook that enforces conventional commit format
-4. **Dry-run injector** — a `PreToolUse` hook that adds `--dry-run` to destructive shell commands
+**What it allows:**
+- All non-Bash tools (Read, Write, Edit, etc.)
+- Bash commands with no secret-like patterns
 
-## Hook Script Template
+**Wired in:** `.claude/settings.json` under `PreToolUse` → `Bash` matcher
 
-```bash
-#!/usr/bin/env bash
-# Hook: PreToolUse
-# Purpose: [describe what this enforces]
-#
-# Receives JSON on stdin:
-# { "tool": "Bash", "input": { "command": "..." } }
-#
-# Returns on stdout:
-# {} = allow
-# { "decision": "block", "reason": "..." } = block
-# { "input": { ... } } = allow with modified input
+#### What Was Learned
 
-INPUT=$(cat)
-TOOL=$(echo "$INPUT" | jq -r '.tool')
-# ... your logic here
-echo '{}'
-```
+1. **The hook contract is stdin/stdout JSON.** Claude writes `{ "tool": "...", "input": {...} }`
+   to stdin. Return `{}` to allow, or `{ "decision": "block", "reason": "..." }` to block.
+
+2. **`PreToolUse` fires before anything happens** — it's the right place for governance.
+   `PostToolUse` is for observation, not prevention.
+
+3. **Use `grep -Eiq --`** — the `--` is required when patterns start with `-` (like `-H`)
+   to prevent grep from treating the pattern as a flag. macOS BSD grep respects this.
+
+4. **Matchers scope hooks to specific tools.** The `"matcher": "Bash"` in `settings.json`
+   means this script only runs for Bash calls — no overhead on Read/Write/etc.
+
+5. **Shell state doesn't persist between Claude Code tool calls.** Each Bash invocation
+   is a fresh shell. Avoid relying on variables set in previous calls.
+
+## Suggested Next Experiments
+
+- **Edit logger** — `PostToolUse` hook that appends every file edit to a local audit log
+- **Commit normalizer** — `PreToolUse` hook that enforces conventional commit format
+- **Dry-run injector** — `PreToolUse` hook that adds `--dry-run` to destructive commands
