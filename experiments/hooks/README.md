@@ -57,8 +57,43 @@ a secret echoed in GitHub Actions logs is exposed to anyone with repo access, an
 For this project specifically, an **edit logger** (`PostToolUse`) would be a more
 proportionate use of hooks than a secret blocker.
 
+---
+
+### Edit Logger (`edit-logger.sh`)
+
+A `PostToolUse` hook that appends a timestamped record to `.claude/edit-log.jsonl`
+after every `Edit`, `Write`, or `NotebookEdit` tool call.
+
+**What it logs:**
+```json
+{"timestamp":"2026-03-04T15:07:30Z","tool":"Edit","file":"src/auth.py"}
+```
+
+**What it ignores:** all non-file-modifying tools (Bash, Read, Glob, etc.)
+
+**Output location:** `.claude/edit-log.jsonl` (gitignored — local only)
+
+**Wired in:** `.claude/settings.json` under `PostToolUse` → `Edit|Write|NotebookEdit` matcher
+
+#### What Was Learned
+
+1. **`PostToolUse` cannot block.** The action is already done. Return value is ignored —
+   this event is purely for observation, logging, and side effects.
+
+2. **The matcher supports regex alternation.** `"matcher": "Edit|Write|NotebookEdit"`
+   matches any of the three tools in a single hook entry.
+
+3. **JSONL is the right format for append logs.** One JSON object per line means the file
+   is always valid to read line-by-line, even if written to concurrently by multiple agents.
+
+4. **`git rev-parse --show-toplevel`** finds the repo root regardless of where Claude
+   is running from — makes log paths portable across subdirectories.
+
+5. **`PostToolUse` is the right hook for a solo project.** No friction, full visibility.
+   Contrast with the secret scanner: same domain (file/command activity), different
+   risk context, different hook choice.
+
 ## Suggested Next Experiments
 
-- **Edit logger** — `PostToolUse` hook that appends every file edit to a local audit log
 - **Commit normalizer** — `PreToolUse` hook that enforces conventional commit format
 - **Dry-run injector** — `PreToolUse` hook that adds `--dry-run` to destructive commands

@@ -11,6 +11,9 @@ site/
 # Claude local settings (personal overrides, not for version control)
 .claude/settings.local.json
 
+# Edit audit log — local only
+.claude/edit-log.jsonl
+
 # Environment variables
 .env
 *.env
