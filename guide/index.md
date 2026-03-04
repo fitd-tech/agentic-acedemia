@@ -22,6 +22,7 @@ This is my working reference for building that depth.
 | [Workflow & Sessions](00-workflow/index.md) | Context window management, plan mode, session resumption, model selection |
 | [CLAUDE.md Engineering](01-claude-md/index.md) | Writing high-signal context files that scale across projects |
 | [Hooks](02-hooks/index.md) | Lifecycle control, governance, and observability |
+| [Skills](skills/index.md) | Reusable workflow files that encode project-specific knowledge |
 | [Subagents](03-subagents/index.md) | Delegation patterns, worktree isolation, scoping |
 | [Agent Teams](04-agent-teams/index.md) | Peer-to-peer multi-agent coordination (Opus 4.6+) |
 | [MCP Servers](05-mcp-servers/index.md) | Extending Claude with external tools and data sources |

@@ -42,6 +42,7 @@ nav:
     - Workflow & Sessions: 00-workflow/index.md
     - CLAUDE.md Engineering: 01-claude-md/index.md
     - Hooks: 02-hooks/index.md
+    - Skills: skills/index.md
     - Subagents: 03-subagents/index.md
     - Agent Teams: 04-agent-teams/index.md
     - MCP Servers: 05-mcp-servers/index.md
