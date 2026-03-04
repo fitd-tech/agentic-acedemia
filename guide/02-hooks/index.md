@@ -39,13 +39,34 @@ Unlike CLAUDE.md (advisory), hooks are **enforced** — they can block or modify
 .claude/settings.local.json      # Personal overrides (gitignored)
 ```
 
+## When to Block vs. When to Log
+
+This is the most important design decision when writing a hook.
+
+**Block** (`PreToolUse` returning `{ "decision": "block" }`) only when the action is
+irreversible or dangerous *in your specific context*. Overusing blocks makes Claude
+frustrating to work with and erodes trust in the tooling.
+
+**Log** (`PostToolUse` writing to a file or endpoint) when you want visibility without
+friction. For local solo projects, logging is almost always more appropriate than blocking.
+
+| Context | Right approach |
+|---------|---------------|
+| Local solo project | `PostToolUse` log — observe, don't block |
+| Shared team repo | `PreToolUse` block — enforce for everyone via committed `settings.json` |
+| CI/CD pipeline | `PreToolUse` block — logs are retained and often visible to many people |
+
+**Example:** blocking `echo $API_KEY` on a local machine you control adds no real security.
+The same block in a GitHub Actions workflow prevents a credential from appearing in logs
+accessible to every repo collaborator. Same pattern, completely different risk profile.
+
 ## Practical Use Cases
 
-- Auto-redact secrets before they reach a Bash command
-- Normalize commit messages to match project conventions
-- Block file writes outside approved directories
-- Run a linter after every Edit tool call
-- Log all tool calls to an observability stack
+- **Team repo:** block file writes outside approved directories
+- **CI/CD:** block commands that echo secrets into logs
+- **Any context:** log all Edit tool calls to a local audit file
+- **Any context:** normalize commit messages to match project conventions
+- **Observability:** POST every tool call to a monitoring endpoint
 
 ## Resources
 

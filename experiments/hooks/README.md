@@ -36,6 +36,27 @@ appear to expose secrets.
 5. **Shell state doesn't persist between Claude Code tool calls.** Each Bash invocation
    is a fresh shell. Avoid relying on variables set in previous calls.
 
+#### When This Hook Is (and Isn't) Appropriate
+
+**Blocks are for irreversible or dangerous actions in your context.** For a local solo
+project, `echo $API_KEY` in a terminal you control carries little real risk. Blocking
+it here is overcautious — the hook is most valuable as a learning artifact.
+
+The same pattern applied to a **team project or CI environment** is genuinely important:
+a secret echoed in GitHub Actions logs is exposed to anyone with repo access, and
+`echo $TOKEN` in a committed workflow is a real credential leak vector.
+
+**Practical rule of thumb:**
+
+| Context | Right tool |
+|---------|-----------|
+| Local solo project | `PostToolUse` log (observe, don't block) |
+| Shared team repo | `PreToolUse` block (enforce for everyone) |
+| CI/CD pipeline | `PreToolUse` block (logs are often retained and visible) |
+
+For this project specifically, an **edit logger** (`PostToolUse`) would be a more
+proportionate use of hooks than a secret blocker.
+
 ## Suggested Next Experiments
 
 - **Edit logger** — `PostToolUse` hook that appends every file edit to a local audit log
