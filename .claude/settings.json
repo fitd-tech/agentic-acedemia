@@ -1,13 +1,17 @@
 {
   "model": "claude-sonnet-4-6",
   "hooks": {
-"PreToolUse": [
+    "PreToolUse": [
       {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
             "command": "bash experiments/hooks/secret-scanner.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash experiments/hooks/commit-normalizer.sh"
           }
         ]
       }

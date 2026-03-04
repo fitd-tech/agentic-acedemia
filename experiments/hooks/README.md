@@ -97,8 +97,44 @@ after every `Edit`, `Write`, or `NotebookEdit` tool call.
    and `tool_input`, not `tool` and `input` as simplified examples suggest. Confirmed
    by capturing raw stdin with `cat >> /tmp/debug.log` as a wildcard hook.
 
+---
+
+### Commit Normalizer (`commit-normalizer.sh`)
+
+A `PreToolUse` hook that blocks `git commit` commands whose messages don't follow
+[conventional commit](https://www.conventionalcommits.org/) format.
+
+**Valid format:** `type(scope): description` or `type: description`
+
+**Valid types:** `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `test`, `perf`, `ci`, `build`, `revert`
+
+**What it blocks:**
+- `git commit -m "updated stuff"` — no type prefix
+- `git commit -m "update: add thing"` — invalid type
+
+**What it allows:**
+- `git commit -m "feat: add login page"` — valid
+- `git commit -m "fix(auth): handle expired tokens"` — valid with scope
+- `git status`, `git push`, other non-commit commands — not targeted
+- Interactive commits (no `-m` flag) — passed through
+
+**Wired in:** `.claude/settings.json` alongside the secret scanner under the same `Bash` matcher
+
+#### What Was Learned
+
+1. **Multiple hooks can share a matcher.** Both `secret-scanner.sh` and `commit-normalizer.sh`
+   run under `"matcher": "Bash"` — Claude Code runs them in order for every Bash call.
+
+2. **Scoping within a hook matters too.** The hook only acts when the command contains
+   `git commit`, leaving all other Bash commands untouched.
+
+3. **Blocks are appropriate here even locally.** Unlike the secret scanner, normalizing
+   commit messages is a quality convention that applies regardless of team size. Malformed
+   commits are tedious to fix after pushing.
+
+4. **Interactive commits pass through.** Without a `-m` flag, we can't parse the message
+   without blocking the command entirely — so we let it through and trust the user.
+
 ## Suggested Next Experiments
 
-
-- **Commit normalizer** — `PreToolUse` hook that enforces conventional commit format
-- **Dry-run injector** — `PreToolUse` hook that adds `--dry-run` to destructive commands
+- **Dry-run injector** — `PreToolUse` hook that *rewrites* destructive commands to add `--dry-run`
