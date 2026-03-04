@@ -93,6 +93,10 @@ after every `Edit`, `Write`, or `NotebookEdit` tool call.
    Contrast with the secret scanner: same domain (file/command activity), different
    risk context, different hook choice.
 
+6. **The actual stdin schema differs from the docs.** Hook scripts receive `tool_name`
+   and `tool_input`, not `tool` and `input` as simplified examples suggest. Confirmed
+   by capturing raw stdin with `cat >> /tmp/debug.log` as a wildcard hook.
+
 ## Suggested Next Experiments
 
 
