@@ -39,6 +39,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Guide:
+    - Workflow & Sessions: 00-workflow/index.md
     - CLAUDE.md Engineering: 01-claude-md/index.md
     - Hooks: 02-hooks/index.md
     - Subagents: 03-subagents/index.md
