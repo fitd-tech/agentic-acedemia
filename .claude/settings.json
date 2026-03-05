@@ -1,5 +1,6 @@
 {
   "model": "claude-sonnet-4-6",
+  "enabledMcpjsonServers": ["filesystem"],
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
@@ -30,6 +31,16 @@
           {
             "type": "command",
             "command": "bash experiments/hooks/edit-logger.sh"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash experiments/context-management/pre-compact.sh"
           }
         ]
       }
