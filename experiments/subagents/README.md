@@ -4,7 +4,9 @@ Deeper patterns for subagent orchestration, including worktree isolation.
 
 ## Experiments
 
-*None yet — add one to get started.*
+1. **[parallel-analysis/](parallel-analysis/)** — fan-out 4 subagents to analyze hook scripts in parallel, synthesize results
+2. **[context-protection/](context-protection/)** — subagent reads 90-line noisy build log, returns 30-line structured summary; raw file never enters main context
+3. **[worktree-isolation/](worktree-isolation/)** — two concurrent worktree agents; reveals that `isolation: "worktree"` gives repo isolation, not permission elevation
 
 ## Suggested Starting Points
 
