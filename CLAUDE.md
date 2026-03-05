@@ -12,6 +12,13 @@ Build and document production-grade patterns for:
 - Subagent orchestration with worktree isolation
 - Agent Teams (multi-agent peer coordination)
 - GitHub Actions / headless / CI integration
+- Status line customization
+- Custom slash commands
+- Context management strategies
+- Permission modes and security
+- Cost optimization
+- Settings hierarchy
+- MCP servers
 
 ## Project Structure
 
@@ -36,6 +43,13 @@ Build and document production-grade patterns for:
 4. Subagent patterns — `experiments/subagents/`
 5. Agent Teams — `experiments/agent-teams/`
 6. GitHub Actions + headless — `experiments/` + `.github/workflows/`
+7. Status line — `experiments/statusline/` + `~/.claude/statusline.sh`
+8. Custom slash commands — `.claude/commands/`
+9. Context management — `/compact`, summary prompts, session continuity
+10. Permission modes — `--allowedTools`, `--disallowedTools`, settings-based allow/deny
+11. Cost optimization — model selection strategy, token budgeting
+12. Settings hierarchy — user vs project settings, override precedence
+13. MCP servers — connecting external tools, databases, and APIs
 
 ## Conventions
 
