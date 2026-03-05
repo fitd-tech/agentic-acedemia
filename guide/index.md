@@ -27,6 +27,7 @@ This is my working reference for building that depth.
 | [Agent Teams](04-agent-teams/index.md) | Peer-to-peer multi-agent coordination (Opus 4.6+) |
 | [MCP Servers](05-mcp-servers/index.md) | Extending Claude with external tools and data sources |
 | [GitHub Actions](06-github-actions/index.md) | Headless workflows, CI integration, async automation |
+| [Changelog](changelog/index.md) | What has changed in this guide over time |
 
 ## The Learning Loop
 
