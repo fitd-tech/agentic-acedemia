@@ -1,0 +1,1 @@
+/Users/anthonypelusocook/claude-code-config/hooks/edit-logger.sh

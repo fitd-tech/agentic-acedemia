@@ -1,0 +1,1 @@
+/Users/anthonypelusocook/claude-code-config/hooks/commit-normalizer.sh
