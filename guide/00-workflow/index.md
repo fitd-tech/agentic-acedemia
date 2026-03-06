@@ -175,3 +175,9 @@ Refactor this auth module. ultrathink
 
 Use it for genuinely hard architectural questions. It's more expensive and slower —
 don't use it for routine tasks.
+
+---
+
+## Next: Developer Workflows
+
+For concrete step-by-step patterns (project setup, adding features, testing, debugging, refactoring), see [Developer Workflows](../07-workflows/index.md).

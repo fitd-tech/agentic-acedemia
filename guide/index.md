@@ -20,6 +20,7 @@ This is my working reference for building that depth.
 | Section | What You'll Learn |
 |---------|------------------|
 | [Workflow & Sessions](00-workflow/index.md) | Context window management, plan mode, session resumption, model selection |
+| [Developer Workflows](07-workflows/index.md) | Step-by-step patterns: project setup, features, testing, debugging, refactoring |
 | [CLAUDE.md Engineering](01-claude-md/index.md) | Writing high-signal context files that scale across projects |
 | [Hooks](02-hooks/index.md) | Lifecycle control, governance, and observability |
 | [Skills](skills/index.md) | Reusable workflow files that encode project-specific knowledge |
